@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-
-<student>
-    <name>Lasith </name>
-    <address>Pokunuwita</address>
-    <level>3</level>
-</student>
+<data>
+    <student>
+        <name>Lasith </name>
+        <address>Pokunuwita</address>
+        <level>3</level>
+    </student>
+</data>

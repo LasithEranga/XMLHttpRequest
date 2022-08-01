@@ -4,23 +4,38 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css">
+    <title>XMLHttpRequest</title>
 </head>
 <body>
 
-    <div id="output">
-
+    <div class="m-3">
+        <h3>Student Details</h3>
+        <div class="row text-center ms-1">
+            <div class="col-2 bg-light">Name</div>
+            <div class="col-2 bg-light">Address</div>
+            <div class="col-2 bg-light">Level</div>
+        </div>
+        <div id="studentDetails"></div>
     </div>
 
     <script>
         const xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = () => {
             if(xhttp.readyState == 4 && xhttp.status == 200){
-                document.getElementById("output").innerText = xhttp.responseText;
-                console.log(xhttp)
+                const studentData = xhttp.responseXML;
+                const students = studentData.getElementsByTagName("student");
+                let dataString = "";
+                for(i=0; i< students.length; i++){
+                    dataString += `<div class="row text-center ms-1">
+                                        <div class="col-2 bg-light">${students[i].getElementsByTagName("name")[0].childNodes[0].nodeValue}</div>
+                                        <div class="col-2 bg-light">${students[i].getElementsByTagName("address")[0].childNodes[0].nodeValue}</div>
+                                        <div class="col-2 bg-light">${students[i].getElementsByTagName("level")[0].childNodes[0].nodeValue}</div>
+                                   </div>`
+                }
+                document.getElementById("studentDetails").innerHTML = dataString;
             }
         }
-
         xhttp.open("GET", "XMLFiles/Students.xml", true);
         xhttp.send();
     </script>
